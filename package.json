@@ -27,6 +27,7 @@
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.5",
+    "node-pre-gyp": "^0.17.0",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.12",
     "npm": "^7.22.0",

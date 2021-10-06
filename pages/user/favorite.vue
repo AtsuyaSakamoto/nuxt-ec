@@ -47,6 +47,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
+
 export default {
   middleware: 'direct-login',
   computed: {

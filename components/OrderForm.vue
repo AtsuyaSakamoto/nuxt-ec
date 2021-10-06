@@ -284,9 +284,10 @@ h1 {
   border-bottom: 1px solid #ddd;
   padding: 10px 20px 10px 50px;
   display: flex;
+  width: 60%;
+  margin: 0 auto;
+  max-width: 700px;
   align-items: center;
-  margin-left: 200px;
-  margin-right: 200px;
 }
 .Form-Item:nth-child(5) {
   border-bottom: 1px solid #ddd;
@@ -324,6 +325,7 @@ h1 {
   flex: 1;
   width: 280px;
   max-width: 410px;
+  margin-right: 0 auto;
   background: #eaedf2;
   font-size: 18px;
 }
@@ -343,7 +345,7 @@ h1 {
 }
 .Form-Item-Radio {
   font-size: 18px;
-  margin-left: 80px;
+  margin-left: 110px;
   width: 0.9em;
   height: 0.9em;
 }
@@ -380,9 +382,12 @@ h1 {
     margin-top: 80px;
     max-width: 720px;
   }
+
   .Form-Item {
-    margin-left: 40px;
-    margin-right: 40px;
+    // padding: 10px 20px 10px 50px;
+    padding: 10px 20px 10px 20px;
+    width: 80%;
+    max-width: 700px;
   }
 
   .Form-Item-Label {
@@ -406,15 +411,13 @@ h1 {
     text-align: center;
     font-size: 14px;
   }
+
   .Form-Item-Input {
-    border: 1px solid #ddd;
-    border-radius: 6px;
     margin-left: 30px;
     padding-left: 1em;
     padding-right: 1em;
     height: 28px;
-    flex: 1;
-    width: 250px;
+    // width: 100%;
     max-width: 410px;
     font-size: 16px;
   }
@@ -434,7 +437,7 @@ h1 {
   }
   .Form-Item-Radio {
     font-size: 16px;
-    margin-left: 0px;
+    margin-left: 40px;
     width: 0.9em;
     height: 0.9em;
   }
@@ -474,16 +477,14 @@ h1 {
     max-width: 720px;
   }
   .Form-Item {
-    padding: 8px 10px 8px 10px;
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-    margin-right: 10px;
+    padding: 10px 0px 10px 8px;
+    min-width: 330px;
+    width: 90%;
   }
 
   .Form-Item-Label {
     width: 100%;
-    max-width: 120px;
+    max-width: 135px;
     letter-spacing: 0.05em;
     font-size: 12px;
   }
@@ -509,7 +510,7 @@ h1 {
     padding-right: 1em;
     height: 28px;
     flex: 1;
-    width: 150px;
+    width: 300px;
     max-width: 150px;
     font-size: 12px;
   }
@@ -525,7 +526,7 @@ h1 {
   }
   .Form-Item-Radio {
     font-size: 12px;
-    margin-left: 5px;
+    margin-left: 10px;
     width: 0.9em;
     height: 0.9em;
   }
@@ -549,6 +550,10 @@ h1 {
     font-size: 12px;
     margin: 0 auto;
     margin-top: 20px;
+  }
+  .validation-position {
+    margin-left: 10px;
+    font-size: 12px;
   }
 }
 </style>

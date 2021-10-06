@@ -27,7 +27,7 @@ module.exports = {
   },
   // ユーザーのログイン処理
   userLogin: async (req, res) => {
-    console.log('user login')
+    // console.log('user login')
     try {
       const user = await User.findOne({ email: req.body.email })
       if (!user) {
@@ -53,9 +53,9 @@ module.exports = {
   },
   // ユーザーの認証処理
   userAuth: async (req, res) => {
-    console.log('user Auth')
+    // console.log('user Auth')
     try {
-      console.log('try')
+      // console.log('try')
       const bearToken = await req.headers['authorization']
       // console.log(bearToken)
       const bearer = await bearToken.split(' ')

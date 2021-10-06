@@ -2,7 +2,12 @@ export const state = () => ({
   favoriteItem: [],
 })
 
-export const getters = {}
+export const getters = {
+  favoriteItemArry: (state) => {
+    const data = state.favoriteItem
+    return data
+  },
+}
 
 export const mutations = {
   addFavoriteItem(state, payload) {
@@ -19,32 +24,34 @@ export const mutations = {
   },
 }
 export const actions = {
-  register({commit}, payload){
-    console.log(payload)
-    this.$axios.post('/api/user/register', payload)
-    .then((res) => {
-      this.$auth.loginWith('local', {
-        data: payload,
-      }).catch(err => {
-      console.log(err)
-    })
+  register({ commit }, payload) {
+    // console.log(payload)
+    this.$axios.post('/api/user/register', payload).then((res) => {
+      this.$auth
+        .loginWith('local', {
+          data: payload,
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     })
   },
-  login({commit}, payload){
-    this.$auth.loginWith('local',{data:payload})
-    .then(res => {
-    console.log("成功")
-    })
-    .catch((err) => {
-    console.log(err.response)
-    })
+  login({ commit }, payload) {
+    this.$auth
+      .loginWith('local', { data: payload })
+      .then((res) => {
+        // console.log('成功')
+      })
+      .catch((err) => {
+        console.log(err.response)
+      })
   },
   addFavoriteItem({ commit }, payload) {
     const favoriteObj = {
-      favoriteId : payload.itemInfo[0].itemId,
-      itemName : payload.itemInfo[0].itemName,
-      itemImage : payload.itemInfo[0].itemImage,
-      itemPrice: payload.itemInfo[0].itemPrice
+      favoriteId: payload.itemInfo[0].itemId,
+      itemName: payload.itemInfo[0].itemName,
+      itemImage: payload.itemInfo[0].itemImage,
+      itemPrice: payload.itemInfo[0].itemPrice,
     }
     commit('addFavoriteItem', favoriteObj)
     this.$axios.$post('/api/user/add-favorite', payload)

@@ -1,6 +1,5 @@
-// import axios from 'axios'
 import axios from 'axios'
-// import config from '../config'
+import config from '../config'
 
 export const state = () => ({
   itemflg: true,
@@ -14,12 +13,15 @@ export const mutations = {
   searchItem(state, searchedItems) {
     state.shopItems = searchedItems
   },
+  deleteItemDetail(state) {
+    state.itemDetail = {}
+  },
   flgChange(state) {
     state.itemflg = false
   },
   setItemDetail(state, payload) {
     state.itemDetail = payload
-    console.log(state.itemDetail)
+    // console.log(state.itemDetail)
   },
 }
 
@@ -27,21 +29,25 @@ export const actions = {
   searchItem({ commit }, searchedItems) {
     commit('searchItem', searchedItems)
   },
+  deleteItemDetail({ commit }) {
+    commit('deleteItemDetail')
+  },
+
   fetchItemDetail({ commit }, payload) {
-    // const apiKey = config.RAKUTEN_API_KEY
-    console.log(payload)
+    const apiKey = config.RAKUTEN_API_KEY
+    // console.log(payload)
     axios
       .get(
         'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706',
         {
           params: {
-            applicationId: '1083744313894679387',
+            applicationId: apiKey,
             itemCode: payload,
           },
         }
       )
       .then((res) => {
-        console.log(res.data.Items[0])
+        // console.log(res.data.Items[0])
         const itemDetailObj = {
           itemId: res.data.Items[0].Item.itemCode,
           itemName: res.data.Items[0].Item.itemName,

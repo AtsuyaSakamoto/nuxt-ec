@@ -21,7 +21,7 @@ module.exports = {
     res.status(200).json(newItem.orders)
   },
   addCart: async (req, res) => {
-    console.log(req.body.payload.orderId)
+    // console.log(req.body.payload.orderId)
     const updateData = {
       itemId: req.body.payload.itemId,
       itemName: req.body.payload.itemName,
@@ -37,8 +37,8 @@ module.exports = {
   },
 
   sendOrder: async (req, res) => {
-    console.log('sendOrder発火')
-    console.log(req.body.payload)
+    // console.log('sendOrder発火')
+    // console.log(req.body.payload)
     const updateData = {
       destinationName: req.body.payload.destinationName,
       destinationEmail: req.body.payload.destinationEmail,
@@ -51,13 +51,13 @@ module.exports = {
       orderDate: req.body.payload.orderDate,
     }
     await User.findOneAndUpdate(
-      { 'orders.orderId': req.body.payload.orderId},
-      { $set: { 'orders.$.orderInfo': updateData}},
-      {upsert:true}
+      { 'orders.orderId': req.body.payload.orderId },
+      { $set: { 'orders.$.orderInfo': updateData } },
+      { upsert: true }
     )
     await User.findOneAndUpdate(
-      { 'orders.orderId': req.body.payload.orderId},
-      { $set: { 'orders.$.status': req.body.payload.status} }
+      { 'orders.orderId': req.body.payload.orderId },
+      { $set: { 'orders.$.status': req.body.payload.status } }
     )
 
     const userInfoData = {
@@ -69,25 +69,25 @@ module.exports = {
     }
     await User.findOneAndUpdate(
       { _id: req.body.payload.userId },
-      {$set:{userInfo:userInfoData}},
-      {upsert:true}
+      { $set: { userInfo: userInfoData } },
+      { upsert: true }
     )
   },
   deleteCart: async (req, res) => {
-    console.log('deletecart呼び出し')
-    console.log(req.body)
+    // console.log('deletecart呼び出し')
+    // console.log(req.body)
     const xxx = await User.findOneAndUpdate(
       { 'orders.orderId': req.body.orderId },
       { $pull: { 'orders.$.itemInfo': { itemId: req.body.itemId } } }
     )
     res.send(xxx)
   },
-  cancelOrder: async (req,res) => {
-    console.log("キャンセルオーダーコントローラー")
-    console.log(req.body)
+  cancelOrder: async (req, res) => {
+    // console.log('キャンセルオーダーコントローラー')
+    // console.log(req.body)
     await User.findOneAndUpdate(
       { 'orders.orderId': req.body.orderId },
-      { $set: { 'orders.$.status': 9} }
+      { $set: { 'orders.$.status': 9 } }
     )
-  }
+  },
 }

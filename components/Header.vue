@@ -214,7 +214,7 @@ export default {
             }
           )
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             this.searchedItems = response.data
 
             this['item/searchItem'](response.data.Items)
@@ -335,6 +335,9 @@ header {
     li.menu-item {
       padding: 5px;
     }
+    li.menu-item-last {
+      padding: 7px;
+    }
     input.search-box {
       font-size: 12px;
       height: 30px;
@@ -365,9 +368,8 @@ header {
 // スマホ対応
 @media screen and (max-width: 650px) {
   header {
-    width: 100%;
     height: 160px;
-    align-items: center;
+    min-width: 380px;
     justify-content: initial;
 
     h1.title {
@@ -418,14 +420,16 @@ header {
     .hamburger__btn {
       position: absolute;
       top: 10px;
-      right: 100px;
+      right: 5%;
+      width: 45px;
+      margin: 0 auto;
       cursor: pointer;
       z-index: 50;
 
       .line {
         position: absolute;
-        top: 0;
-        left: 20px;
+        // top: 0;
+        // left: 20px;
         width: 45px;
         height: 2px;
         background: #333333;

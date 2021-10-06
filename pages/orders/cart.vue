@@ -20,7 +20,9 @@
               <div id="title" class="product-title">{{ item.itemName }}</div>
             </div>
           </router-link>
-          <div id="price" class="product-price">{{ item.itemPrice.toLocaleString() }}</div>
+          <div id="price" class="product-price">
+            {{ item.itemPrice.toLocaleString() }}
+          </div>
           <div id="quantity" class="product-quantity">{{ item.buyNum }}個</div>
           <div class="product-removal">
             <button class="remove-product" @click="deleteItem(item.itemId)">
@@ -45,15 +47,15 @@
             </div>
           </div>
         </div>
-        <button class="checkout">注文に進む</button>
+        <button class="checkout" @click="checkout">注文に進む</button>
       </div>
-      <div><OrderForm :order-id="cartData.orderId" /></div>
+      <div v-show="orderflg"><OrderForm :order-id="cartData.orderId" /></div>
     </div>
     <div v-else class="empty-cart">
       <div class="empty-content">
         <p class="empty-text">カートの中には何も入っていません。</p>
         <div class="empty-icon">
-         <fa :icon="faShoppingCart"/>
+          <fa :icon="faShoppingCart" />
         </div>
         <div class="button05" @click.prevent="backHome">
           <a href="">お買い物を続ける</a>
@@ -70,6 +72,12 @@ import OrderForm from '../../components/OrderForm.vue'
 export default {
   components: { OrderForm },
   middleware: 'direct-login',
+  data() {
+    return {
+      orderflg: false,
+    }
+  },
+
   computed: {
     faLock() {
       return faLock
@@ -107,17 +115,21 @@ export default {
   methods: {
     deleteItem(id) {
       // if (this.$store.getters['order/CartDataArry'].length) {
-        // カートない商品を削除するためにアイテム固有のIDと削除するオーダー情報を指定するIDを入れる
-        const data = {
-          itemId: id,
-          orderId: this.$store.getters['order/CartDataArry'][0].orderId,
-        }
-        this['order/deleteCart'](data)
-        // this.$store.dispatch("order/deleteCart", data)
+      // カートない商品を削除するためにアイテム固有のIDと削除するオーダー情報を指定するIDを入れる
+      const data = {
+        itemId: id,
+        orderId: this.$store.getters['order/CartDataArry'][0].orderId,
+      }
+      this['order/deleteCart'](data)
+      // this.$store.dispatch("order/deleteCart", data)
       // }
     },
-    backHome(){
-      this.$router.push("/")
+    backHome() {
+      this.$router.push('/')
+    },
+    checkout() {
+      this.orderflg = !this.orderflg
+      // console.log(this.orderflg)
     },
     ...mapActions(['order/getOrders', 'order/deleteCart']),
   },
@@ -316,42 +328,42 @@ label {
       // margin: 0 auto;
       font-size: 150px;
       // text-align: center;
-    display: flex;
-    justify-content: center;
+      display: flex;
+      justify-content: center;
       color: #555555;
       margin-bottom: 20px;
     }
   }
   .button05 a {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 auto;
-  padding: 1em 2em;
-  width: 150px;
-  color: #333;
-  font-size: 15px;
-  font-weight: 700;
-  background-color: #cccccc;
-  box-shadow: 0 5px 0 #aaaaaa;
-  transition: 0.3s;
-  text-decoration: none;
-}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 1em 2em;
+    width: 150px;
+    color: #333;
+    font-size: 15px;
+    font-weight: 700;
+    background-color: #cccccc;
+    box-shadow: 0 5px 0 #aaaaaa;
+    transition: 0.3s;
+    text-decoration: none;
+  }
 
-.button05 a::after {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-top: 3px solid #333333;
-  border-right: 3px solid #333333;
-  transform: rotate(45deg);
-}
+  .button05 a::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-top: 3px solid #333333;
+    border-right: 3px solid #333333;
+    transform: rotate(45deg);
+  }
 
-.button05 a:hover {
-  transform: translateY(3px);
-  text-decoration: none;
-  box-shadow: 0 2px 0 #aaaaaa;
-}
+  .button05 a:hover {
+    transform: translateY(3px);
+    text-decoration: none;
+    box-shadow: 0 2px 0 #aaaaaa;
+  }
 }
 
 /* Make adjustments for tablet */
@@ -413,18 +425,18 @@ label {
   .empty-cart {
     margin-top: 80px;
     .empty-content {
-    .empty-text {
-      font-size: 20px;
+      .empty-text {
+        font-size: 20px;
+      }
+      .empty-icon {
+        font-size: 120px;
+      }
     }
-    .empty-icon {
-      font-size: 120px;
+    .button05 a {
+      width: 120px;
+      font-size: 12px;
+      font-weight: 700;
     }
-  }
-  .button05 a {
-  width: 120px;
-  font-size: 12px;
-  font-weight: 700;
-  }
   }
 }
 </style>

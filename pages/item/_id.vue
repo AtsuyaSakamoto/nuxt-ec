@@ -8,10 +8,7 @@
         </p>
         <div class="img-position">
           <span>
-            <img
-              :src="itemDetail.itemImage"
-              class="item-img"
-            />
+            <img :src="itemDetail.itemImage" class="item-img" />
           </span>
           <span class="cost-position">
             <p class="item-cost">
@@ -35,7 +32,7 @@
             </p>
             <p>
               <span class="text-bold"> 合計：</span>
-              {{ (itemDetail.itemPrice * value) }}円(税込)
+              {{ itemDetail.itemPrice * value }}円(税込)
             </p>
           </span>
           <span class="cost-position">
@@ -53,7 +50,8 @@
         </div>
         <span class="item-detail">
           <p>
-            <span class="text-bold">商品詳細：</span>{{ itemDetail.itemCaption }}
+            <span class="text-bold">商品詳細：</span
+            >{{ itemDetail.itemCaption }}
           </p>
         </span>
       </li>
@@ -79,83 +77,89 @@ export default {
     },
     itemDetail() {
       return this.$store.state.item.itemDetail
-    }
+    },
   },
-  mounted() {
+  beforeMount() {
+    // console.log(this.$route.params.id)
     this['item/fetchItemDetail'](this.$route.params.id)
+  },
+  beforeDestroy() {
+    this['item/deleteItemDetail']()
+    console.log('発火')
   },
   methods: {
     addCart() {
       if (this.$store.state.auth.loggedIn) {
-      const item = {
-        orderId: new Date().getTime().toString(),
-        status: 0,
-        // userId: this.$auth.user.id,
-        userId: this.$store.state.auth.user.id,
-        addCartDate: new Date().toString(),
-        itemInfo: [
-          {
+        const item = {
+          orderId: new Date().getTime().toString(),
+          status: 0,
+          // userId: this.$auth.user.id,
+          userId: this.$store.state.auth.user.id,
+          addCartDate: new Date().toString(),
+          itemInfo: [
+            {
+              itemId: this.itemDetail.itemId,
+              itemName: this.itemDetail.itemName,
+              itemPrice: this.itemDetail.itemPrice,
+              itemImage: this.itemDetail.itemImage,
+              buyNum: this.value,
+            },
+          ],
+        }
+        // ユーザーのオーダー配列が空（まだ一回もカートに入れたことがない）、またはカートに入れているが注文は実行していない場合
+        if (this.$store.getters['order/CartDataArry'].length === 0) {
+          if (confirm('カートに追加しますか？')) {
+            this['order/newCart'](item)
+          }
+          // ユーザーのオーダー配列にstatusが０のオブジェクトがある
+        } else {
+          const payload = {
+            orderId: this.$store.getters['order/CartDataArry'][0].orderId,
             itemId: this.itemDetail.itemId,
             itemName: this.itemDetail.itemName,
             itemPrice: this.itemDetail.itemPrice,
             itemImage: this.itemDetail.itemImage,
             buyNum: this.value,
-          },
-        ],
-      }
-      // ユーザーのオーダー配列が空（まだ一回もカートに入れたことがない）、またはカートに入れているが注文は実行していない場合
-      if (this.$store.getters['order/CartDataArry'].length === 0) {
-        if (confirm('カートに追加しますか？')){
-          this['order/newCart'](item)
+          }
+          if (confirm('カートに追加しますか？')) {
+            this['order/addCart'](payload)
+          }
         }
-        // ユーザーのオーダー配列にstatusが０のオブジェクトがある
       } else {
-        const payload = {
-          orderId: this.$store.getters['order/CartDataArry'][0].orderId,
-          itemId: this.itemDetail.itemId,
-          itemName: this.itemDetail.itemName,
-          itemPrice: this.itemDetail.itemPrice,
-          itemImage: this.itemDetail.itemImage,
-          buyNum: this.value,
-        }
-        if (confirm('カートに追加しますか？')) {
-         this['order/addCart'](payload)
-        }
-      }
-      }else {
         alert('カートに追加するにはログインしてください')
         this.$router.push('/user/login')
       }
     },
     addFavorite() {
-      if (this.$store.state.auth.loggedIn){
+      if (this.$store.state.auth.loggedIn) {
         const favoriteItem = {
           favoriteId: new Date().getTime().toString(),
-        // userId: this.$auth.user.id,
-        userId: this.$store.state.auth.user.id,
-        itemInfo: [
-          {
-            itemId: this.itemDetail.itemId,
-            itemName: this.itemDetail.itemName,
-            itemPrice: this.itemDetail.itemPrice,
-            itemImage: this.itemDetail.itemImage,
-          },
-        ],
-      }
+          // userId: this.$auth.user.id,
+          userId: this.$store.state.auth.user.id,
+          itemInfo: [
+            {
+              itemId: this.itemDetail.itemId,
+              itemName: this.itemDetail.itemName,
+              itemPrice: this.itemDetail.itemPrice,
+              itemImage: this.itemDetail.itemImage,
+            },
+          ],
+        }
         if (confirm('お気に入りに追加しますか？')) {
           this['users/addFavoriteItem'](favoriteItem)
         }
-        }else{
+      } else {
         alert('お気に入りに追加するにはログインしてください')
         this.$router.push('/user/login')
-        }
+      }
     },
     ...mapActions([
       'order/getOrders',
       'order/newCart',
       'order/addCart',
       'users/addFavoriteItem',
-      "item/fetchItemDetail"
+      'item/fetchItemDetail',
+      'item/deleteItemDetail',
     ]),
   },
 }

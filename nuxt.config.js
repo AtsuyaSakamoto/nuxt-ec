@@ -21,6 +21,10 @@ export default {
   plugins: [
     '@plugins/vee-validate',
     '@/plugins/swiper',
+    {
+      src: '~/plugins/vue-loading-template',
+      ssr: false,
+    },
     // { src: '~/plugins/vue-burger-menu', ssr: false },
   ],
 

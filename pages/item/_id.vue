@@ -1,71 +1,80 @@
 <template>
   <div>
-    <h1>商品詳細</h1>
-    <ul class="itemList">
-      <li>
-        <p class="item-name">
-          <span class="text-bold">商品名：</span>{{ itemDetail.itemName }}
-        </p>
-        <div class="img-position">
-          <span>
-            <img :src="itemDetail.itemImage" class="item-img" />
-          </span>
-          <span class="cost-position">
-            <p class="item-cost">
-              <span class="text-bold">価格：</span
-              >{{ itemDetail.itemPrice }}円(税込)
-            </p>
-            <p>
-              <span class="text-bold"> 数量：</span>
-              <select v-model="value">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-            </p>
-            <p>
-              <span class="text-bold"> 合計：</span>
-              {{ itemDetail.itemPrice * value }}円(税込)
-            </p>
-          </span>
-          <span class="cost-position">
-            <p>
-              <button class="addcart-btn" @click="addCart">
-                <span> <fa :icon="faShoppingCart" class="menu-icon" /></span
-                ><span>カートに入れる</span></button
-              ><br />
-              <button class="addfavorite-btn" @click="addFavorite">
-                <span> <fa :icon="faStar" class="menu-icon" /></span
-                ><span>お気に入りへ追加</span>
-              </button>
-            </p>
-          </span>
-        </div>
-        <span class="item-detail">
-          <p>
-            <span class="text-bold">商品詳細：</span
-            >{{ itemDetail.itemCaption }}
+    <div class="loading-position"><Loading v-show="loading"></Loading></div>
+    <div v-show="!loading" class="main-position">
+      <h1>商品詳細</h1>
+      <ul class="itemList">
+        <li>
+          <p class="item-name">
+            <span class="text-bold">商品名：</span>{{ itemDetail.itemName }}
           </p>
-        </span>
-      </li>
-    </ul>
+          <div class="img-position">
+            <span>
+              <img :src="itemDetail.itemImage" class="item-img" />
+            </span>
+            <span class="cost-position">
+              <p class="item-cost">
+                <span class="text-bold">価格：</span
+                >{{ itemDetail.itemPrice }}円(税込)
+              </p>
+              <p>
+                <span class="text-bold"> 数量：</span>
+                <select v-model="value">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </p>
+              <p>
+                <span class="text-bold"> 合計：</span>
+                {{ itemDetail.itemPrice * value }}円(税込)
+              </p>
+            </span>
+            <span class="cost-position">
+              <p>
+                <button class="addcart-btn" @click="addCart">
+                  <span> <fa :icon="faShoppingCart" class="menu-icon" /></span
+                  ><span>カートに入れる</span></button
+                ><br />
+                <button class="addfavorite-btn" @click="addFavorite">
+                  <span> <fa :icon="faStar" class="menu-icon" /></span
+                  ><span>お気に入りへ追加</span>
+                </button>
+              </p>
+            </span>
+          </div>
+          <span class="item-detail">
+            <p>
+              <span class="text-bold">商品詳細：</span
+              >{{ itemDetail.itemCaption }}
+            </p>
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import { faShoppingCart, faStar } from '@fortawesome/free-solid-svg-icons'
+import Loading from '@/components/Loading'
+
 export default {
+  components: {
+    Loading,
+  },
   data() {
     return {
       value: 1,
+      loading: true,
     }
   },
   computed: {
@@ -80,8 +89,10 @@ export default {
     },
   },
   beforeMount() {
-    // console.log(this.$route.params.id)
     this['item/fetchItemDetail'](this.$route.params.id)
+    setTimeout(() => {
+      this.loading = false
+    }, 1000)
   },
   beforeDestroy() {
     this['item/deleteItemDetail']()
@@ -168,6 +179,13 @@ export default {
 <style lang="scss" scoped>
 $hover_color: #6699ff;
 $border_color: #000080;
+
+.loading-position {
+  margin-top: 200px;
+}
+.main-position {
+  margin-top: -150px;
+}
 
 h1 {
   text-align: center;

@@ -89,5 +89,6 @@ export default {
     },
     transpile: ['vee-validate/dist/rules', 'tasty-burger-button'],
   },
-  serverMiddleware: ['~/api/index.js'],
+  // serverMiddleware: ['~/api/index.js'],
+  serverMiddleware: ['~/pages/api/index.js'],
 }

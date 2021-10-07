@@ -1,9 +1,4 @@
 export default {
-  publicRuntimeConfig: {
-    mongodbConnect: process.env.VUE_MONGODB_CONNECT_URL,
-    rakutenApiKey: process.env.VUE_RAKUTEN_API_KEY,
-  },
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'ec-app',

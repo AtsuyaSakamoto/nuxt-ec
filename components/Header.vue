@@ -168,9 +168,10 @@ export default {
       return faUser
     },
   },
-  created($config) {
+  created() {
     if (this.$store.state.item.itemflg === true) {
-      const apiKey = $config.publicRuntimeConfig.env.rakutenApiKey
+      console.log(process.env.RAKUTEN_API_KEY)
+      const apiKey = process.env.RAKUTEN_API_KEY
       axios
         .get(
           'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706',
@@ -198,8 +199,8 @@ export default {
         this.$auth.logout()
       }
     },
-    searchItem($config) {
-      const apiKey = $config.publicRuntimeConfig.env.rakutenApiKey
+    searchItem() {
+      const apiKey = process.env.RAKUTEN_API_KEY
       if (this.searchWord !== '') {
         this.searchedItems = ''
         axios

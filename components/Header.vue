@@ -135,7 +135,7 @@ import {
   faLockOpen,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
-import config from '../config'
+// import config from '../config'
 
 export default {
   data() {
@@ -168,9 +168,9 @@ export default {
       return faUser
     },
   },
-  created() {
+  created($config) {
     if (this.$store.state.item.itemflg === true) {
-      const apiKey = config.RAKUTEN_API_KEY
+      const apiKey = $config.publicRuntimeConfig.env.rakutenApiKey
       axios
         .get(
           'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706',
@@ -198,8 +198,8 @@ export default {
         this.$auth.logout()
       }
     },
-    searchItem() {
-      const apiKey = config.RAKUTEN_API_KEY
+    searchItem($config) {
+      const apiKey = $config.publicRuntimeConfig.env.rakutenApiKey
       if (this.searchWord !== '') {
         this.searchedItems = ''
         axios

@@ -1,4 +1,12 @@
+require('dotenv').config()
+const { MONGODB_CONNECT_URL, RAKUTEN_API_KEY } = process.env
+
 export default {
+  env: {
+    MONGODB_CONNECT_URL,
+    RAKUTEN_API_KEY,
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'ec-app',

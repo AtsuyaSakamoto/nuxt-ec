@@ -96,7 +96,6 @@ export default {
   },
   beforeDestroy() {
     this['item/deleteItemDetail']()
-    console.log('発火')
   },
   methods: {
     addCart() {

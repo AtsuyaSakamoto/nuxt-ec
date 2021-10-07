@@ -1,5 +1,5 @@
 import axios from 'axios'
-import config from '../config'
+// import config from '../config'
 
 export const state = () => ({
   itemflg: true,
@@ -34,7 +34,7 @@ export const actions = {
   },
 
   fetchItemDetail({ commit }, payload) {
-    const apiKey = config.RAKUTEN_API_KEY
+    const apiKey = process.env.RAKUTEN_API_KEY
     // console.log(payload)
     axios
       .get(

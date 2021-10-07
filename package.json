@@ -10,7 +10,7 @@
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
     "test": "jest",
-    "api": "node api/server.js"
+    "api": "node api/index.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",

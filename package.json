@@ -10,7 +10,7 @@
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
     "test": "jest",
-    "api": "node api/server.js"
+    "api": "node api/index.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -25,9 +25,11 @@
     "core-js": "^3.15.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.5",
+    "net": "^1.0.2",
     "node-pre-gyp": "^0.17.0",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.12",

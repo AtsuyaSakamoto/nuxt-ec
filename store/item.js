@@ -33,8 +33,8 @@ export const actions = {
     commit('deleteItemDetail')
   },
 
-  fetchItemDetail({ commit }, payload, $config) {
-    const apiKey = $config.process.env.rakutenApiKey
+  fetchItemDetail({ commit }, payload) {
+    const apiKey = process.env.RAKUTEN_API_KEY
     // console.log(payload)
     axios
       .get(

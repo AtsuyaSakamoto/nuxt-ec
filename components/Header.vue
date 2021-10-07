@@ -170,7 +170,6 @@ export default {
   },
   created() {
     if (this.$store.state.item.itemflg === true) {
-      console.log(process.env.RAKUTEN_API_KEY)
       const apiKey = process.env.RAKUTEN_API_KEY
       axios
         .get(

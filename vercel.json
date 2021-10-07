@@ -13,8 +13,7 @@
   "routes": [
     {
       "src": "/_nuxt/.+",
-      "headers": { "Cache-Control": "public, max-age=31536000" },
-      "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+      "headers": { "Cache-Control": "public, max-age=31536000" }
     },
     {
       "src": "/sw.js",
@@ -29,6 +28,7 @@
       "src": "/(.*)",
       "headers": { "cache-control": "s-maxage=1, stale-while-revalidate " },
       "dest": "/"
-    }
+    },
+    { "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }] }
   ]
 }
